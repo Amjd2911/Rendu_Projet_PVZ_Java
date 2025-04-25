@@ -29,7 +29,6 @@ public class MapDto {
     public String getChemin_image() { return chemin_image; }
     public void setChemin_image(String chemin_image) { this.chemin_image = chemin_image; }
     
-    // Pour la compatibilité avec les tests existants
     public int getIdMap() { return id_map; }
     public void setIdMap(int id_map) { this.id_map = id_map; }
     

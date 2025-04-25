@@ -21,7 +21,7 @@ import com.oxyl.epf.model.Plante;
 import com.oxyl.epf.service.PlanteService;
 
 @RestController
-@RequestMapping("/plantes") // Removed /api prefix
+@RequestMapping("/plantes")
 public class PlanteController {
 
     private final PlanteService planteService;

@@ -21,7 +21,7 @@ import com.oxyl.epf.model.Zombie;
 import com.oxyl.epf.service.ZombieService;
 
 @RestController
-@RequestMapping("/zombies") // Removed /api prefix
+@RequestMapping("/zombies")
 public class ZombieController {
 
     private final ZombieService zombieService;

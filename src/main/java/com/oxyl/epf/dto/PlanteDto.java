@@ -28,7 +28,6 @@ public class PlanteDto {
         this.chemin_image = chemin_image;
     }
 
-    // Getters et setters
     public int getId_plante() { return id_plante; }
     public void setId_plante(int id_plante) { this.id_plante = id_plante; }
 
@@ -56,7 +55,6 @@ public class PlanteDto {
     public String getChemin_image() { return chemin_image; }
     public void setChemin_image(String chemin_image) { this.chemin_image = chemin_image; }
     
-    // Pour la compatibilité avec les tests existants
     public int getIdPlante() { return id_plante; }
     public void setIdPlante(int id_plante) { this.id_plante = id_plante; }
     

@@ -22,7 +22,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Configuration pour les images - utilisée par le DispatcherServlet pour les chemins qui ne sont pas interceptés par le DefaultServlet
         registry.addResourceHandler("/images/**")
                 .addResourceLocations("/images/", "classpath:/static/images/", "file:images/", "file:target/CoursEpfBack/images/")
                 .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());

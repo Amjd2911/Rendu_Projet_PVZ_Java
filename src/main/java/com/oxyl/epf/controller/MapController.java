@@ -21,7 +21,7 @@ import com.oxyl.epf.model.Map;
 import com.oxyl.epf.service.MapService;
 
 @RestController
-@RequestMapping("/maps") // Removed /api prefix
+@RequestMapping("/maps")
 public class MapController {
 
     private final MapService mapService;
