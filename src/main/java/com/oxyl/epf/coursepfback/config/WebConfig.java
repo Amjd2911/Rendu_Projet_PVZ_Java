@@ -1,6 +1,9 @@
 package com.oxyl.epf.coursepfback.config;
 
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -19,7 +22,9 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // Configuration pour les images - utilisée par le DispatcherServlet pour les chemins qui ne sont pas interceptés par le DefaultServlet
         registry.addResourceHandler("/images/**")
-                .addResourceLocations("/images/");
+                .addResourceLocations("/images/", "classpath:/static/images/", "file:images/", "file:target/CoursEpfBack/images/")
+                .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
     }
 }

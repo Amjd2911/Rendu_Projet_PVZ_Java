@@ -1,24 +1,24 @@
 package com.oxyl.epf.dto;
 
 public class MapDto {
-    private int idMap;
+    private int id_map;
     private int ligne;
     private int colonne;
-    private String cheminImage;
+    private String chemin_image;
 
 
     public MapDto() {}
 
-    public MapDto(int idMap, int ligne, int colonne, String cheminImage) {
-        this.idMap = idMap;
+    public MapDto(int id_map, int ligne, int colonne, String chemin_image) {
+        this.id_map = id_map;
         this.ligne = ligne;
         this.colonne = colonne;
-        this.cheminImage = cheminImage;
+        this.chemin_image = chemin_image;
     }
 
 
-    public int getIdMap() { return idMap; }
-    public void setIdMap(int idMap) { this.idMap = idMap; }
+    public int getId_map() { return id_map; }
+    public void setId_map(int id_map) { this.id_map = id_map; }
 
     public int getLigne() { return ligne; }
     public void setLigne(int ligne) { this.ligne = ligne; }
@@ -26,6 +26,13 @@ public class MapDto {
     public int getColonne() { return colonne; }
     public void setColonne(int colonne) { this.colonne = colonne; }
 
-    public String getCheminImage() { return cheminImage; }
-    public void setCheminImage(String cheminImage) { this.cheminImage = cheminImage; }
+    public String getChemin_image() { return chemin_image; }
+    public void setChemin_image(String chemin_image) { this.chemin_image = chemin_image; }
+    
+    // Pour la compatibilité avec les tests existants
+    public int getIdMap() { return id_map; }
+    public void setIdMap(int id_map) { this.id_map = id_map; }
+    
+    public String getCheminImage() { return chemin_image; }
+    public void setCheminImage(String chemin_image) { this.chemin_image = chemin_image; }
 }

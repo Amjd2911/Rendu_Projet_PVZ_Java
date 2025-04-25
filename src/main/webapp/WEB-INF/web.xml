@@ -16,6 +16,12 @@
         <url-pattern>/*</url-pattern> <!-- Apply to all URLs -->
     </filter-mapping>
 
+    <!-- Configuration spécifique pour servir les images directement -->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/images/*</url-pattern>
+    </servlet-mapping>
+    
     <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
