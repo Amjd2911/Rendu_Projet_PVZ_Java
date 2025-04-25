@@ -47,4 +47,9 @@ public class ZombieServiceImpl implements ZombieService {
     public List<Zombie> findByMapId(int mapId) {
         return zombieDao.findByMapId(mapId);
     }
+
+    @Override
+    public void deleteByMapId(int mapId) {
+        zombieDao.deleteByMapId(mapId);
+    }
 }

@@ -45,17 +45,45 @@ public class ZombieDaoImpl implements ZombieDao {
 
     @Override
     public void save(Zombie zombie) {
-        String sql = "INSERT INTO Zombie (nom, point_de_vie, attaque_par_seconde, degat_attaque, vitesse_de_deplacement, chemin_image, id_map) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, zombie.getNom(), zombie.getPointDeVie(), zombie.getAttaqueParSeconde(),
-                zombie.getDegatAttaque(), zombie.getVitesseDeDeplacement(), zombie.getCheminImage(), zombie.getIdMap());
+        // Convertir l'id_map si nécessaire (ajustement pour les index commençant à 0)
+        int mappedIdMap = (zombie.getIdMap() == 0) ? 1 : zombie.getIdMap();
+        
+        // Vérifier si la map existe
+        String checkMapSql = "SELECT COUNT(*) FROM Map WHERE id_map = ?";
+        Integer count = jdbcTemplate.queryForObject(checkMapSql, Integer.class, mappedIdMap);
+        
+        if (count != null && count > 0) {
+            // La map existe, procéder à l'insertion du zombie
+            String sql = "INSERT INTO Zombie (nom, point_de_vie, attaque_par_seconde, degat_attaque, vitesse_de_deplacement, chemin_image, id_map) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            jdbcTemplate.update(sql, zombie.getNom(), zombie.getPointDeVie(), zombie.getAttaqueParSeconde(),
+                    zombie.getDegatAttaque(), zombie.getVitesseDeDeplacement(), zombie.getCheminImage(), mappedIdMap);
+        } else {
+            // La map n'existe pas, journaliser l'erreur pour débogage
+            System.err.println("Tentative d'insérer un zombie avec id_map=" + mappedIdMap + " inexistant");
+            throw new IllegalArgumentException("La map avec id=" + mappedIdMap + " n'existe pas dans la base de données");
+        }
     }
 
     @Override
     public void update(Zombie zombie) {
-        String sql = "UPDATE Zombie SET nom=?, point_de_vie=?, attaque_par_seconde=?, degat_attaque=?, vitesse_de_deplacement=?, chemin_image=?, id_map=? WHERE id_zombie=?";
-        jdbcTemplate.update(sql, zombie.getNom(), zombie.getPointDeVie(), zombie.getAttaqueParSeconde(),
-                zombie.getDegatAttaque(), zombie.getVitesseDeDeplacement(), zombie.getCheminImage(),
-                zombie.getIdMap(), zombie.getIdZombie());
+        // Convertir l'id_map si nécessaire (ajustement pour les index commençant à 0)
+        int mappedIdMap = (zombie.getIdMap() == 0) ? 1 : zombie.getIdMap();
+        
+        // Vérifier si la map existe
+        String checkMapSql = "SELECT COUNT(*) FROM Map WHERE id_map = ?";
+        Integer count = jdbcTemplate.queryForObject(checkMapSql, Integer.class, mappedIdMap);
+        
+        if (count != null && count > 0) {
+            // La map existe, procéder à la mise à jour du zombie
+            String sql = "UPDATE Zombie SET nom=?, point_de_vie=?, attaque_par_seconde=?, degat_attaque=?, vitesse_de_deplacement=?, chemin_image=?, id_map=? WHERE id_zombie=?";
+            jdbcTemplate.update(sql, zombie.getNom(), zombie.getPointDeVie(), zombie.getAttaqueParSeconde(),
+                    zombie.getDegatAttaque(), zombie.getVitesseDeDeplacement(), zombie.getCheminImage(),
+                    mappedIdMap, zombie.getIdZombie());
+        } else {
+            // La map n'existe pas, journaliser l'erreur pour débogage
+            System.err.println("Tentative de mettre à jour un zombie avec id_map=" + mappedIdMap + " inexistant");
+            throw new IllegalArgumentException("La map avec id=" + mappedIdMap + " n'existe pas dans la base de données");
+        }
     }
 
     @Override
@@ -68,5 +96,11 @@ public class ZombieDaoImpl implements ZombieDao {
     public List<Zombie> findByMapId(int mapId) {
         String sql = "SELECT * FROM Zombie WHERE id_map = ?";
         return jdbcTemplate.query(sql, zombieRowMapper, mapId);
+    }
+
+    @Override
+    public void deleteByMapId(int mapId) {
+        String sql = "DELETE FROM Zombie WHERE id_map = ?";
+        jdbcTemplate.update(sql, mapId);
     }
 }

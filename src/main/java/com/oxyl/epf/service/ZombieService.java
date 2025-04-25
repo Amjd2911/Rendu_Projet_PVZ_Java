@@ -12,4 +12,5 @@ public interface ZombieService {
     void update(Zombie zombie);
     void deleteById(int id);
     List<Zombie> findByMapId(int mapId);
+    void deleteByMapId(int mapId); // Ajout de la nouvelle méthode
 }

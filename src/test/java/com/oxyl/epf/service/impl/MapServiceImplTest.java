@@ -1,24 +1,34 @@
 package com.oxyl.epf.service.impl;
 
-import com.oxyl.epf.dao.MapDao;
-import com.oxyl.epf.model.Map;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+import java.util.Optional; // Importer ZombieService
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.mockito.MockitoAnnotations;
+
+import com.oxyl.epf.dao.MapDao;
+import com.oxyl.epf.model.Map;
+import com.oxyl.epf.service.ZombieService;
 
 public class MapServiceImplTest {
 
     @Mock
     private MapDao mapDao;
+
+    @Mock // Ajouter un mock pour ZombieService
+    private ZombieService zombieService;
 
     @InjectMocks
     private MapServiceImpl mapService;
@@ -75,10 +85,16 @@ public class MapServiceImplTest {
 
     @Test
     public void testDeleteById() {
+        // Configurer les mocks pour ne rien faire lorsqu'ils sont appelés
+        doNothing().when(zombieService).deleteByMapId(anyInt());
         doNothing().when(mapDao).deleteById(anyInt());
 
+        // Appeler la méthode à tester
         mapService.deleteById(1);
 
+        // Vérifier que deleteByMapId de zombieService est appelé en premier
+        verify(zombieService, times(1)).deleteByMapId(1);
+        // Vérifier que deleteById de mapDao est appelé ensuite
         verify(mapDao, times(1)).deleteById(1);
     }
 }

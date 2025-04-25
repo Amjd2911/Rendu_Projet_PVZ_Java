@@ -8,14 +8,17 @@ import org.springframework.stereotype.Service;
 import com.oxyl.epf.dao.MapDao;
 import com.oxyl.epf.model.Map;
 import com.oxyl.epf.service.MapService;
+import com.oxyl.epf.service.ZombieService; // Importer ZombieService
 
 @Service
 public class MapServiceImpl implements MapService {
 
     private final MapDao mapDao;
+    private final ZombieService zombieService; // Injecter ZombieService
 
-    public MapServiceImpl(MapDao mapDao) {
+    public MapServiceImpl(MapDao mapDao, ZombieService zombieService) { // Modifier le constructeur
         this.mapDao = mapDao;
+        this.zombieService = zombieService;
     }
 
     @Override
@@ -40,6 +43,9 @@ public class MapServiceImpl implements MapService {
 
     @Override
     public void deleteById(int id) {
+        // D'abord supprimer les zombies associés à cette carte
+        zombieService.deleteByMapId(id);
+        // Ensuite, supprimer la carte
         mapDao.deleteById(id);
     }
 }

@@ -1,8 +1,9 @@
 package com.oxyl.epf.dao;
 
-import com.oxyl.epf.model.Zombie;
 import java.util.List;
 import java.util.Optional;
+
+import com.oxyl.epf.model.Zombie;
 
 public interface ZombieDao {
     List<Zombie> findAll();
@@ -11,5 +12,6 @@ public interface ZombieDao {
     void update(Zombie zombie);
     void deleteById(int id);
     List<Zombie> findByMapId(int mapId);
+    void deleteByMapId(int mapId); // Ajout de la nouvelle méthode
 }
 
