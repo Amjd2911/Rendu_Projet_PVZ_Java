@@ -17,13 +17,13 @@ public class Main {
                  Statement statement = connection.createStatement();
                  ResultSet resultSet = statement.executeQuery("SELECT * FROM Plante")) {
 
-                System.out.println("✅ Connexion à la base réussie !");
+                System.out.println("Connexion à la base réussie !");
                 while (resultSet.next()) {
                     System.out.println("Plante trouvée : " + resultSet.getString("nom"));
                 }
             }
         } catch (Exception e) {
-            System.err.println("❌ Erreur de connexion : " + e.getMessage());
+            System.err.println("Erreur de connexion : " + e.getMessage());
         }
     }
 }

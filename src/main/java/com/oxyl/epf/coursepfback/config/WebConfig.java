@@ -19,7 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedHeaders("*")
                 .allowCredentials(true);
     }
-
+    // J'ai ajouté d'autres ressources locations pour les images suite à de nombreux problèmes de chargement d'images
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**")

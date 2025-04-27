@@ -41,11 +41,12 @@ public class MapServiceImpl implements MapService {
         mapDao.update(map);
     }
 
+    //Ici, on supprime la carte et tous les zombies associés pour éviter des erreurs ultérieures
+    //Ça évite également d'avoir des zombies orphelins dans la base de données qui pourraient causer
+    //des problèmes et/ou juste prendre de la place sans ne plus jamais être utilisés.
     @Override
     public void deleteById(int id) {
-        // D'abord supprimer les zombies associés à cette carte
         zombieService.deleteByMapId(id);
-        // Ensuite, supprimer la carte
         mapDao.deleteById(id);
     }
 }

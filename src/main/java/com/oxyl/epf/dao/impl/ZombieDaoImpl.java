@@ -42,7 +42,8 @@ public class ZombieDaoImpl implements ZombieDao {
         List<Zombie> zombies = jdbcTemplate.query(sql, zombieRowMapper, id);
         return zombies.stream().findFirst();
     }
-
+    // Ici j'ai rajouté un test pour vérifier si la map existe avant d'insérer ou de mettre à jour un zombie
+    // Si la map n'existe pas, on lève une exception et on affiche un message d'erreur détaillé.
     @Override
     public void save(Zombie zombie) {
         int mappedIdMap = (zombie.getIdMap() == 0) ? 1 : zombie.getIdMap();
@@ -59,7 +60,7 @@ public class ZombieDaoImpl implements ZombieDao {
             throw new IllegalArgumentException("La map avec id=" + mappedIdMap + " n'existe pas dans la base de données");
         }
     }
-
+    //Idem pour la méthode update
     @Override
     public void update(Zombie zombie) {
         int mappedIdMap = (zombie.getIdMap() == 0) ? 1 : zombie.getIdMap();
